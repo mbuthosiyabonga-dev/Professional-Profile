@@ -1,0 +1,840 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Siyabonga Mbutho | ICT Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0d0f14;
+            --surface: #13161e;
+            --border: #1f2433;
+            --accent: #7c6af7;
+            --accent2: #3ecfcf;
+            --text: #e8eaf0;
+            --muted: #7a7f96;
+            --display: 'Space Grotesk', sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--display);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.1rem 2.5rem;
+            background: rgba(13,15,20,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--mono);
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+            .nav-links a {
+                color: var(--muted);
+                text-decoration: none;
+                font-size: 0.875rem;
+                font-weight: 500;
+                letter-spacing: 0.04em;
+                transition: color 0.2s;
+            }
+
+                .nav-links a:hover {
+                    color: var(--text);
+                }
+
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 7rem 2.5rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.35;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(124,106,247,0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent2);
+            border: 1px solid rgba(62,207,207,0.25);
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.06em;
+        }
+
+            .hero-tag::before {
+                content: '';
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--accent2);
+            }
+
+        h1 {
+            font-size: clamp(2.6rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.25rem;
+        }
+
+            h1 span {
+                color: var(--accent);
+            }
+
+        .hero-sub {
+            font-size: 1.125rem;
+            color: var(--muted);
+            max-width: 580px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                background: #9181f9;
+                transform: translateY(-1px);
+            }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+            .btn-outline:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                transform: translateY(-1px);
+            }
+
+        section {
+            padding: 5rem 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--accent2);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-divider {
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+            .stat-card .stat-num {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--accent);
+                font-family: var(--mono);
+                line-height: 1;
+            }
+
+            .stat-card .stat-label {
+                font-size: 0.8rem;
+                color: var(--muted);
+                margin-top: 0.3rem;
+            }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+            .skill-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-3px);
+            }
+
+            .skill-card h3 {
+                font-size: 0.95rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+            }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 5px;
+            background: rgba(124,106,247,0.12);
+            color: var(--accent);
+            border: 1px solid rgba(124,106,247,0.2);
+        }
+
+            .tag.teal {
+                background: rgba(62,207,207,0.1);
+                color: var(--accent2);
+                border-color: rgba(62,207,207,0.2);
+            }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+            .project-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-3px);
+            }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .project-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(124,106,247,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+            .project-links a {
+                color: var(--muted);
+                text-decoration: none;
+                font-size: 0.8rem;
+                font-family: var(--mono);
+                padding: 0.2rem 0.5rem;
+                border: 1px solid var(--border);
+                border-radius: 5px;
+                transition: all 0.15s;
+            }
+
+                .project-links a:hover {
+                    color: var(--accent);
+                    border-color: var(--accent);
+                }
+
+        .project-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .project-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.25rem 1rem;
+            align-items: start;
+        }
+
+        .edu-degree {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .edu-school {
+            color: var(--accent);
+            font-size: 0.875rem;
+            margin-top: 0.2rem;
+        }
+
+        .edu-desc {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            grid-column: 1 / -1;
+        }
+
+        .edu-year {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--accent2);
+            white-space: nowrap;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid rgba(62,207,207,0.25);
+            border-radius: 999px;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+            .contact-link:hover {
+                color: var(--accent);
+            }
+
+        .contact-link-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+            .contact-form input,
+            .contact-form textarea {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 0.8rem 1rem;
+                color: var(--text);
+                font-family: var(--display);
+                font-size: 0.9rem;
+                outline: none;
+                transition: border-color 0.2s;
+                width: 100%;
+            }
+
+                .contact-form input:focus,
+                .contact-form textarea:focus {
+                    border-color: var(--accent);
+                }
+
+            .contact-form textarea {
+                resize: vertical;
+                min-height: 120px;
+            }
+
+                .contact-form input::placeholder,
+                .contact-form textarea::placeholder {
+                    color: var(--muted);
+                }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-family: var(--mono);
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                padding: 1rem 1.25rem;
+            }
+
+            .nav-links {
+                gap: 1.25rem;
+            }
+
+            section {
+                padding: 4rem 1.25rem;
+            }
+
+            .about-grid, .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+            .reveal.visible {
+                opacity: 1;
+                transform: none;
+            }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">&lt;SiyabongaMbutho /&gt;</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-tag">Available for hire</div>
+            <h1>Hi, I'm <span>Siyabonga Mbutho</span>.<br />I build powerful backend systems.</h1>
+            <p class="hero-sub">
+                Final-year Advanced Diploma ICT student at DUT. Specialising in backend development with Java, C#, SQL, and cloud computing. Passionate about scalable APIs and high-quality software solutions.
+            </p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-primary">View my work</a>
+                <a href="#contact" class="btn btn-outline">Get in touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="reveal">
+            <div class="section-label">// about me</div>
+            <h2>Who I Am</h2>
+            <div class="section-divider"></div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I'm Siyabonga Ernest Mbutho, a final-year Advanced Diploma in ICT Applications Development student at Durban University of Technology with strong backend development skills in Java, C#, and SQL.</p>
+                    <p>I'm experienced in building scalable APIs, optimizing database performance, and implementing secure server-side logic. Passionate about solving technical challenges and delivering high-quality solutions.</p>
+                    <p>I'm eager to contribute to innovative backend projects and grow into a lead developer role where I can make a meaningful impact.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-num">5+</div>
+                        <div class="stat-label">Years of Study</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">DUT</div>
+                        <div class="stat-label">Durban University of Technology</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">Java</div>
+                        <div class="stat-label">& C# Developer</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">Azure</div>
+                        <div class="stat-label">Cloud Computing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="reveal">
+            <div class="section-label">// skills</div>
+            <h2>What I Work With</h2>
+            <div class="section-divider"></div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">C#</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Frameworks & Backend</h3>
+                    <div class="skill-tags">
+                        <span class="tag">ASP.NET Core</span>
+                        <span class="tag">ASP.NET MVC</span>
+                        <span class="tag">REST API</span>
+                        <span class="tag">Entity Framework</span>
+                        <span class="tag">Bootstrap</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Databases & Cloud</h3>
+                    <div class="skill-tags">
+                        <span class="tag teal">SQL Server</span>
+                        <span class="tag teal">MySQL</span>
+                        <span class="tag teal">Database Optimization</span>
+                        <span class="tag teal">Azure</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Professional Skills</h3>
+                    <div class="skill-tags">
+                        <span class="tag teal">Communication</span>
+                        <span class="tag teal">Teamwork</span>
+                        <span class="tag teal">Leadership</span>
+                        <span class="tag teal">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="reveal">
+            <div class="section-label">// projects</div>
+            <h2>Things I've Built</h2>
+            <div class="section-divider"></div>
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon">🔗</div>
+                        <div class="project-links">
+                            <a href="https://github.com/mbuthosiyabonga-dev" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                    <h3>REST API Service</h3>
+                    <p>A scalable RESTful API built with ASP.NET Core, featuring secure authentication, structured endpoints, and optimized database queries for fast response times.</p>
+                    <div class="project-stack">
+                        <span class="tag">C#</span>
+                        <span class="tag">ASP.NET Core</span>
+                        <span class="tag">REST API</span>
+                        <span class="tag">SQL Server</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon">🗄️</div>
+                        <div class="project-links">
+                            <a href="https://github.com/mbuthosiyabonga-dev" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                    <h3>Database Management System</h3>
+                    <p>A backend system focused on optimized database performance, stored procedures, and efficient data retrieval built with Java and MySQL.</p>
+                    <div class="project-stack">
+                        <span class="tag">Java</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag teal">Database Optimization</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon">☁️</div>
+                        <div class="project-links">
+                            <a href="https://github.com/mbuthosiyabonga-dev" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                    <h3>Cloud-Based Web App</h3>
+                    <p>A web application deployed on Microsoft Azure, demonstrating cloud infrastructure setup, deployment pipelines, and secure server-side logic.</p>
+                    <div class="project-stack">
+                        <span class="tag">C#</span>
+                        <span class="tag">ASP.NET</span>
+                        <span class="tag teal">Azure</span>
+                        <span class="tag teal">Cloud</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="reveal">
+            <div class="section-label">// education</div>
+            <h2>My Background</h2>
+            <div class="section-divider"></div>
+            <div class="edu-list">
+
+                <div class="edu-card">
+                    <div>
+                        <div class="edu-degree">Advanced Diploma in Information Communication Technology (ICT)</div>
+                        <div class="edu-school">Durban University of Technology</div>
+                    </div>
+                    <div class="edu-year">2026 – Present</div>
+                    <div class="edu-desc">Specialisation in Applications Development. Currently completing final year with focus on advanced backend systems, cloud computing, and enterprise software development.</div>
+                </div>
+
+                <div class="edu-card">
+                    <div>
+                        <div class="edu-degree">Diploma in Information Communication Technology — Applications Development</div>
+                        <div class="edu-school">Durban University of Technology</div>
+                    </div>
+                    <div class="edu-year">2022 – 2025</div>
+                    <div class="edu-desc">Studied software engineering, database design, web development, object-oriented programming, and systems analysis.</div>
+                </div>
+
+                <div class="edu-card">
+                    <div>
+                        <div class="edu-degree">Higher Certificate in Information Technology</div>
+                        <div class="edu-school">Durban University of Technology</div>
+                    </div>
+                    <div class="edu-year">2021 – 2022</div>
+                    <div class="edu-desc">Foundation studies in programming, networking, and information systems.</div>
+                </div>
+
+                <div class="edu-card">
+                    <div>
+                        <div class="edu-degree">National Senior Certificate (Matric)</div>
+                        <div class="edu-school">Buhlebemfundo Senior Secondary School</div>
+                    </div>
+                    <div class="edu-year">2020</div>
+                    <div class="edu-desc">Completed secondary education with Mathematics, Physical Sciences, and related subjects.</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="reveal">
+            <div class="section-label">// contact</div>
+            <h2>Let's Connect</h2>
+            <div class="section-divider"></div>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <p>I'm actively looking for opportunities as a backend developer or junior software engineer. If you'd like to discuss a role or a project, feel free to reach out.</p>
+                    <div class="contact-links">
+                        <a href="mailto:Siyabongambuthoernest@gmail.com" class="contact-link">
+                            <div class="contact-link-icon">✉️</div>
+                            Siyabongambuthoernest@gmail.com
+                        </a>
+                        <a href="https://linkedin.com/in/siyabongambutho" class="contact-link" target="_blank">
+                            <div class="contact-link-icon">💼</div>
+                            linkedin.com/in/siyabongambutho
+                        </a>
+                        <a href="https://github.com/mbuthosiyabonga-dev" class="contact-link" target="_blank">
+                            <div class="contact-link-icon">🐙</div>
+                            github.com/mbuthosiyabonga-dev
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <input type="text" placeholder="Your name" />
+                    <input type="email" placeholder="Your email" />
+                    <textarea placeholder="Your message"></textarea>
+                    <button class="btn btn-primary" style="align-self:flex-start;">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Built with HTML, CSS &amp; JavaScript &nbsp;·&nbsp; &copy; 2026 Siyabonga Ernest Mbutho</p>
+    </footer>
+
+    <script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+    });
+  });
+    </script>
+
+</body>
+</html>
